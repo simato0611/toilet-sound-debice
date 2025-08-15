@@ -1,0 +1,27 @@
+{
+  "name": "otohime-web-app",
+  "version": "1.0.0",
+  "description": "トイレでの音を気にせず使える音姫Webアプリ",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "python -m http.server 8000",
+    "build": "echo 'Static site - no build required'",
+    "test": "echo 'No tests configured yet'"
+  },
+  "keywords": [
+    "otohime",
+    "toilet",
+    "sound",
+    "privacy",
+    "pwa",
+    "web-app"
+  ],
+  "author": "Claude Code Assistant",
+  "license": "MIT",
+  "homepage": ".",
+  "repository": {
+    "type": "git",
+    "url": "."
+  }
+}

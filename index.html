@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="トイレでの音を気にせず使える音姫Webアプリ。ワンタップで流水音を再生し、プライバシーを守ります。">
+    <meta name="theme-color" content="#2196F3">
+    <title>音姫 - トイレ音消しWebアプリ</title>
+    
+    <!-- PWA設定 -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚿 音姫</h1>
+            <p>トイレでの音を気にせず快適に</p>
+        </header>
+        
+        <main>
+            <!-- メイン再生ボタン -->
+            <div class="play-section">
+                <button id="playButton" class="play-btn" aria-label="音声再生">
+                    <span class="btn-icon">▶️</span>
+                    <span class="btn-text">タップして音を再生</span>
+                </button>
+                
+                <div id="statusText" class="status-text">タップして開始</div>
+                
+                <!-- タイマー表示 -->
+                <div id="timerDisplay" class="timer-display hidden">
+                    残り時間: <span id="timeLeft">30</span>秒
+                </div>
+            </div>
+            
+            <!-- 設定パネル -->
+            <div class="settings-panel">
+                <div class="setting-group">
+                    <label for="volumeSlider">音量</label>
+                    <input type="range" id="volumeSlider" min="0" max="100" value="70" class="slider">
+                    <span id="volumeValue">70%</span>
+                </div>
+                
+                <div class="setting-group">
+                    <label for="soundSelect">音の種類</label>
+                    <select id="soundSelect" class="sound-select">
+                        <option value="water">流水音</option>
+                        <option value="rain">雨音</option>
+                        <option value="birds">鳥のさえずり</option>
+                        <option value="white-noise">ホワイトノイズ</option>
+                    </select>
+                </div>
+                
+                <div class="setting-group">
+                    <label for="timerSelect">自動停止タイマー</label>
+                    <select id="timerSelect" class="timer-select">
+                        <option value="0">なし</option>
+                        <option value="30" selected>30秒</option>
+                        <option value="60">1分</option>
+                        <option value="120">2分</option>
+                        <option value="300">5分</option>
+                    </select>
+                </div>
+                
+                <div class="setting-group">
+                    <label class="toggle-label">
+                        <input type="checkbox" id="darkModeToggle">
+                        <span class="toggle-slider"></span>
+                        ダークモード
+                    </label>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <div class="footer-info">
+                <p>プライベートで安心 | オフライン対応 | 無料</p>
+                <p class="version">v1.0.0</p>
+            </div>
+        </footer>
+    </div>
+    
+    <!-- JavaScript -->
+    <script src="app.js"></script>
+    
+    <!-- PWA Service Worker登録 -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then((registration) => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch((registrationError) => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

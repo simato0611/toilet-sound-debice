@@ -1,0 +1,78 @@
+{
+    "name": "音姫 - トイレ音消しWebアプリ",
+    "short_name": "音姫",
+    "description": "トイレでの音を気にせず使える音姫Webアプリ。ワンタップで流水音を再生し、プライバシーを守ります。",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#F5F5F5",
+    "theme_color": "#2196F3",
+    "orientation": "portrait",
+    "scope": "/",
+    "lang": "ja",
+    "icons": [
+        {
+            "src": "icon-72.png",
+            "sizes": "72x72",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "icon-96.png",
+            "sizes": "96x96",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "icon-128.png",
+            "sizes": "128x128",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "icon-144.png",
+            "sizes": "144x144",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "icon-152.png",
+            "sizes": "152x152",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "icon-384.png",
+            "sizes": "384x384",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": ["utilities", "lifestyle"],
+    "shortcuts": [
+        {
+            "name": "すぐに音を再生",
+            "short_name": "再生",
+            "description": "ワンタップで流水音を再生開始",
+            "url": "/?quick=play",
+            "icons": [
+                {
+                    "src": "icon-96.png",
+                    "sizes": "96x96"
+                }
+            ]
+        }
+    ],
+    "prefer_related_applications": false
+}

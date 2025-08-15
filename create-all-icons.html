@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>音姫アプリ - すべてのアイコン生成</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .icon-container { display: inline-block; margin: 10px; text-align: center; }
+        canvas { border: 1px solid #ccc; margin: 5px; }
+        .download-btn { 
+            display: block; 
+            margin: 5px auto; 
+            padding: 5px 10px; 
+            background: #2196F3; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 4px; 
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🚿 音姫アプリ - アイコン生成ツール</h1>
+    <p>各canvasを右クリックして画像として保存するか、ダウンロードボタンを使用してください。</p>
+    
+    <div id="icons-container"></div>
+    
+    <script>
+        const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
+        const container = document.getElementById('icons-container');
+        
+        function createIcon(size) {
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            
+            const ctx = canvas.getContext('2d');
+            
+            // 背景グラデーション
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#2196F3');
+            gradient.addColorStop(1, '#03DAC6');
+            
+            // 角丸四角形の背景
+            const radius = size * 0.1;
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.roundRect(0, 0, size, size, radius);
+            ctx.fill();
+            
+            // 中央の水滴
+            const centerX = size * 0.5;
+            const centerY = size * 0.45;
+            const dropRadius = size * 0.15;
+            
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, dropRadius, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // 音波エフェクト
+            const waveColors = [
+                'rgba(255, 255, 255, 0.6)',
+                'rgba(255, 255, 255, 0.4)',
+                'rgba(255, 255, 255, 0.2)'
+            ];
+            
+            waveColors.forEach((color, i) => {
+                ctx.strokeStyle = color;
+                ctx.lineWidth = size * (0.02 - i * 0.005);
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, dropRadius + (i + 1) * size * 0.12, 0, Math.PI * 2);
+                ctx.stroke();
+            });
+            
+            return canvas;
+        }
+        
+        function downloadCanvas(canvas, filename) {
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+        
+        // CanvasRenderingContext2D.roundRect polyfill
+        if (!CanvasRenderingContext2D.prototype.roundRect) {
+            CanvasRenderingContext2D.prototype.roundRect = function(x, y, width, height, radius) {
+                this.beginPath();
+                this.moveTo(x + radius, y);
+                this.lineTo(x + width - radius, y);
+                this.quadraticCurveTo(x + width, y, x + width, y + radius);
+                this.lineTo(x + width, y + height - radius);
+                this.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+                this.lineTo(x + radius, y + height);
+                this.quadraticCurveTo(x, y + height, x, y + height - radius);
+                this.lineTo(x, y + radius);
+                this.quadraticCurveTo(x, y, x + radius, y);
+                this.closePath();
+            };
+        }
+        
+        // 全サイズのアイコンを生成
+        sizes.forEach(size => {
+            const iconDiv = document.createElement('div');
+            iconDiv.className = 'icon-container';
+            
+            const canvas = createIcon(size);
+            const label = document.createElement('p');
+            label.textContent = `${size}×${size}px`;
+            
+            const downloadBtn = document.createElement('a');
+            downloadBtn.className = 'download-btn';
+            downloadBtn.textContent = `icon-${size}.png`;
+            downloadBtn.onclick = () => downloadCanvas(canvas, `icon-${size}.png`);
+            
+            iconDiv.appendChild(canvas);
+            iconDiv.appendChild(label);
+            iconDiv.appendChild(downloadBtn);
+            
+            container.appendChild(iconDiv);
+        });
+        
+        // 一括ダウンロードボタン
+        const downloadAllBtn = document.createElement('button');
+        downloadAllBtn.textContent = '全アイコン一括ダウンロード';
+        downloadAllBtn.style.cssText = 'margin: 20px; padding: 10px 20px; background: #4CAF50; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer;';
+        downloadAllBtn.onclick = () => {
+            sizes.forEach(size => {
+                setTimeout(() => {
+                    const canvas = createIcon(size);
+                    downloadCanvas(canvas, `icon-${size}.png`);
+                }, size); // 少し間隔をあけてダウンロード
+            });
+        };
+        
+        document.body.insertBefore(downloadAllBtn, container);
+    </script>
+</body>
+</html>
