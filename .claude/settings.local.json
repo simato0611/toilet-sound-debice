@@ -5,9 +5,15 @@
       "WebSearch",
       "Bash(python:*)",
       "Bash(node:*)",
-      "Bash(git init:*)"
+      "Bash(git init:*)",
+      "Bash(cp:*)",
+      "Bash(start create-icons.html)",
+      "Bash(rm:*)"
     ],
     "deny": [],
-    "ask": []
+    "ask": [],
+    "additionalDirectories": [
+      "C:\\Users\\katsu\\Desktop"
+    ]
   }
 }

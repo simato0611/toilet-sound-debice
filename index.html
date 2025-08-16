@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="トイレでの音を気にせず使える音姫Webアプリ。ワンタップで流水音を再生し、プライバシーを守ります。">
+    <meta name="description" content="トイレでの音を気にせず使えるトイレ用擬音装置Webアプリ。ワンタップで流水音を再生し、プライバシーを守ります。">
     <meta name="theme-color" content="#2196F3">
-    <title>音姫 - トイレ音消しWebアプリ</title>
+    <title>トイレ用擬音装置 - トイレ音消しWebアプリ</title>
     
     <!-- PWA設定 -->
     <link rel="manifest" href="manifest.json">
@@ -18,19 +18,20 @@
 <body>
     <div class="container">
         <header>
-            <h1>🚿 音姫</h1>
+            <h1>トイレ用擬音装置</h1>
             <p>トイレでの音を気にせず快適に</p>
         </header>
         
         <main>
             <!-- メイン再生ボタン -->
             <div class="play-section">
-                <button id="playButton" class="play-btn" aria-label="音声再生">
-                    <span class="btn-icon">▶️</span>
+                <button id="playButton" class="play-btn" aria-label="音声再生" aria-describedby="statusText">
+                    <span class="btn-icon" aria-hidden="true">♪</span>
                     <span class="btn-text">タップして音を再生</span>
+                    <span class="sr-only" id="playButtonState">停止中</span>
                 </button>
                 
-                <div id="statusText" class="status-text">タップして開始</div>
+                <div id="statusText" class="status-text" role="status" aria-live="polite"></div>
                 
                 <!-- タイマー表示 -->
                 <div id="timerDisplay" class="timer-display hidden">
@@ -42,8 +43,10 @@
             <div class="settings-panel">
                 <div class="setting-group">
                     <label for="volumeSlider">音量</label>
-                    <input type="range" id="volumeSlider" min="0" max="100" value="70" class="slider">
-                    <span id="volumeValue">70%</span>
+                    <div class="volume-container">
+                        <input type="range" id="volumeSlider" min="0" max="100" value="75" class="slider">
+                        <span id="volumeValue">75%</span>
+                    </div>
                 </div>
                 
                 <div class="setting-group">
@@ -52,7 +55,7 @@
                         <option value="water">流水音</option>
                         <option value="rain">雨音</option>
                         <option value="birds">鳥のさえずり</option>
-                        <option value="white-noise">ホワイトノイズ</option>
+                        <option value="bubble">バブル音</option>
                     </select>
                 </div>
                 
@@ -67,15 +70,17 @@
                     </select>
                 </div>
                 
-                <div class="setting-group">
-                    <label class="toggle-label">
-                        <input type="checkbox" id="darkModeToggle">
-                        <span class="toggle-slider"></span>
-                        ダークモード
-                    </label>
-                </div>
             </div>
         </main>
+        
+        <!-- 警告音セクション -->
+        <div class="warning-section">
+            <div class="warning-divider"></div>
+            <button id="warningButton" class="warning-btn" aria-label="警告音再生">
+                <span class="warning-title">警告音</span>
+                <span class="warning-description">緊急時に防犯ブザーとしてお使いください</span>
+            </button>
+        </div>
         
         <footer>
             <div class="footer-info">
